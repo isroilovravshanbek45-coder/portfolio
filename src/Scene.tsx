@@ -12,7 +12,7 @@ export default function Scene() {
     try { renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true, powerPreference: 'low-power' }) }
     catch { return } // The SVG portrait underneath remains visible without WebGL.
     el.appendChild(renderer.domElement)
-    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 1.75))
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, window.innerWidth < 760 ? 1.3 : 1.75))
     renderer.setClearColor(0x000000, 0)
     renderer.toneMapping = THREE.ACESFilmicToneMapping
     renderer.toneMappingExposure = 1.5
@@ -72,6 +72,7 @@ export default function Scene() {
     scene.add(rim)
 
     let frame = 0
+    let lastRender = 0
     let visible = true
     let pointerX = 0
     let pointerY = 0
@@ -79,7 +80,14 @@ export default function Scene() {
     const draw = () => {
       frame = 0
       if (!visible || document.hidden) return
-      const time = performance.now() * 0.0004
+      const now = performance.now()
+      // Slow orbital movement needs only 30 fps; this also saves mobile battery.
+      if (!motion.matches && now - lastRender < 1000 / 30) {
+        frame = requestAnimationFrame(draw)
+        return
+      }
+      lastRender = now
+      const time = now * 0.0004
       if (!motion.matches) {
         sculpture.rotation.y += (pointerX * 0.17 - sculpture.rotation.y) * 0.035
         sculpture.rotation.x += (pointerY * 0.06 - sculpture.rotation.x) * 0.035

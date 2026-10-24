@@ -23,6 +23,7 @@ npm run preview
 - Scroll bo‘yicha faol navigatsiya, mobil menyu, klaviatura bilan boshqarish.
 - Original WebGL portret maketi, yoritilgan orbital halqa va sichqoncha harakatiga javob. WebGL bo‘lmasa SVG maket ko‘rinadi.
 - Ekrandan chiqib ketgan yoki yashirin tabdagi 3D animatsiya to‘xtaydi. Pixel ratio cheklangan, Three.js alohida chunk bo‘lib yuklanadi.
+- Orbital harakat 30 fps bilan cheklangan; mobil ekranda render aniqligi quvvat sarfini kamaytirish uchun moslanadi.
 - Portfolio kategoriyalari, batafsil loyiha oynalari, Escape bilan yopish va fokusni qaytarish.
 - Xizmatdan aloqa formasiga o‘tishda xizmat avtomatik tanlanadi.
 - Forma validatsiyasi, xabarni ko‘rib chiqish, nusxalash va `.txt` sifatida saqlash.
@@ -70,6 +71,8 @@ Desktop va mobil Chromium’da quyidagilar tekshiriladi:
 - WebGL mavjud bo‘lmagan qurilmada SVG portret va to‘g‘ri placeholder holatlari.
 
 Avtomatik a11y testlari qo‘lda ekran o‘quvchi sinovining o‘rnini to‘liq bosmaydi.
+
+Lokal sinovlar odatiy animatsiyalar bilan ishlaydi. CI’da GPU bo‘lmagan runner uchun reduced-motion va Chromium software-rendering rejimi yoqiladi; 3D sahna statik render holatida ham tekshiriladi.
 
 Desktop va mobil ko‘rinishlarni `artifacts/`ga olish uchun server ishlab turganida `npm run screenshots`ni bajaring. Bu buyruq `public/social-preview.png`ni ham manba SVG’dan yangilaydi.
 
