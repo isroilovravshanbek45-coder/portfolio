@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://isroilovravshanbek45-coder.github.io/portfolio/sitemap.xml
